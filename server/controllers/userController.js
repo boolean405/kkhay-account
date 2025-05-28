@@ -88,26 +88,42 @@ const signin = async (req, res, next) => {
 
 const profile = async (req, res, next) => {
   const userId = req.userId;
-  const user = await UserDB.findById(userId).select("-password -refreshToken");
-  resJson(res, 200, "Success get profile", user);
+  try {
+    const user = await UserDB.findById(userId).select(
+      "-password -refreshToken"
+    );
+    if (!user) {
+      const error = new Error("User not found!");
+      error.status = 404;
+      throw error.message;
+    }
+    resJson(res, 200, "Success get profile", user);
+  } catch (error) {
+    return next(new Error(error));
+  }
 };
 
 const refresh = async (req, res, next) => {
   const decodedId = req.decodedId;
-
   const accessToken = Token.makeAccessToken({
     id: decodedId.toString(),
   });
 
   try {
-    await UserDB.findByIdAndUpdate(decodedId, {
+    const user = await UserDB.findById(decodedId);
+    if (!user) {
+      const error = new Error("User not found!");
+      error.status = 404;
+      throw error.message;
+    }
+    await UserDB.findByIdAndUpdate(user._id, {
       accessToken,
     });
 
-    const user = await UserDB.findById(decodedId).select(
+    const updatedUser = await UserDB.findById(decodedId).select(
       "-password -refreshToken"
     );
-    resJson(res, 200, "Success refresh", user);
+    resJson(res, 200, "Success refresh", updatedUser);
   } catch (error) {
     return next(new Error(error));
   }
@@ -145,19 +161,54 @@ const edit = async (req, res, next) => {
   const userId = req.userId;
   const { name, username, email, password } = req.body;
   try {
-    await UserDB.findByIdAndUpdate(userId, {
+    const user = await UserDB.findById(userId);
+    if (!user) {
+      const error = new Error("User not found!");
+      error.status = 404;
+      throw error.message;
+    }
+    await UserDB.findByIdAndUpdate(user._id, {
       name,
       username,
       email,
       password,
     });
-    const user = await UserDB.findById(userId).select(
+    const updatedUser = await UserDB.findById(user._id).select(
       "-password -refreshToken"
     );
-    resJson(res, 200, "Success edit profile", user);
+    resJson(res, 200, "Success edit profile", updatedUser);
   } catch (error) {
     return next(new Error(error));
   }
 };
 
-module.exports = { signup, signin, profile, refresh, signout, edit };
+const deleteAccount = async (req, res, next) => {
+  const userId = req.userId;
+  try {
+    const user = await UserDB.findById(userId);
+    if (!user) {
+      const error = new Error("User not found!");
+      error.status = 404;
+      throw error.message;
+    }
+    await UserDB.findByIdAndDelete(user._id);
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
+    resJson(res, 200, "Success delete account");
+  } catch (error) {
+    return next(new Error(error));
+  }
+};
+
+module.exports = {
+  signup,
+  signin,
+  profile,
+  refresh,
+  signout,
+  edit,
+  deleteAccount,
+};

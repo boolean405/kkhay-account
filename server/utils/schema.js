@@ -22,6 +22,18 @@ const UserSchema = {
       .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$'))
       .required(),
   }),
+
+  signin: Joi.object({
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "me", "org"] },
+      })
+      .required(),
+    password: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$'))
+      .required(),
+  }),
 };
 
 module.exports = { UserSchema };

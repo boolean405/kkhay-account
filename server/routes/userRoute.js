@@ -6,6 +6,7 @@ const {
   signin,
   profile,
   refresh,
+  signout,
 } = require("../controllers/userController");
 const {
   validateBody,
@@ -18,5 +19,6 @@ router.post("/signup", validateBody(UserSchema.signup), signup);
 router.post("/signin", validateBody(UserSchema.signin), signin);
 router.get("/profile", validateToken(), profile);
 router.get("/refresh", validateCookie(), refresh);
+router.post("/signout", validateCookie(), signout);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const reqMethodLog = (req, res, next) => {
-  console.log([req.method, req.path]);
+  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+  console.log([req.method, fullUrl]);
   next();
 };
 

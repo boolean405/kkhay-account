@@ -8,8 +8,6 @@ const signup = async (req, res, next) => {
 
   const existEmail = await UserDB.findOne({ email });
   if (existEmail) {
-    console.log("here");
-
     const error = new Error("Email already exist!");
     error.status = 409;
     return next(new Error("Email already exist!"));
@@ -72,12 +70,16 @@ const signin = async (req, res, next) => {
     const user = await UserDB.findById(existUser._id).select(
       "-password -refreshToken"
     );
+    const isLocalhost =
+      req.hostname === "localhost" || req.hostname === "127.0.0.1";
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      // secure: true,
-      // sameSite: "none",
+      sameSite: "None",
+      secure: !isLocalhost,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
+
     resJson(res, 200, "Success signin", user);
   } catch (error) {
     return next(new Error(error));
@@ -111,4 +113,32 @@ const refresh = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, profile, refresh };
+const signout = async (req, res, next) => {
+  const decodedId = req.decodedId;
+
+  try {
+    const user = await UserDB.findById(decodedId);
+    if (!user) {
+      res.clearCookie("refreshToken", {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      });
+      return next(resJson(res, 204));
+    }
+    await UserDB.findByIdAndUpdate(user._id, {
+      refreshToken: "",
+      accessToken: "",
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
+    resJson(res, 200, "Success signout");
+  } catch (error) {
+    return next(new Error(error));
+  }
+};
+
+module.exports = { signup, signin, profile, refresh, signout };

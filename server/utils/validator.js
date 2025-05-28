@@ -36,7 +36,9 @@ const validateCookie = () => {
       return next(error);
     }
     const decoded = Token.verifyRefreshToken(refreshToken);
-    if (decoded) req.decodedId = decoded.id;
+    if (decoded) {
+      req.decodedId = decoded.id;
+    }
     next();
   };
 };

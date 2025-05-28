@@ -15,7 +15,7 @@ const validateBody = (schema) => {
 const validateToken = () => {
   return async (req, res, next) => {
     const authHeader = await req.headers.authorization;
-    if (!authHeader) {
+    if (!authHeader?.startsWith("Bearer ")) {
       const error = new Error("Need Authorization!");
       error.status = 401;
       return next(error);

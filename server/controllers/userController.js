@@ -141,4 +141,23 @@ const signout = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, profile, refresh, signout };
+const edit = async (req, res, next) => {
+  const userId = req.userId;
+  const { name, username, email, password } = req.body;
+  try {
+    await UserDB.findByIdAndUpdate(userId, {
+      name,
+      username,
+      email,
+      password,
+    });
+    const user = await UserDB.findById(userId).select(
+      "-password -refreshToken"
+    );
+    resJson(res, 200, "Success edit profile", user);
+  } catch (error) {
+    return next(new Error(error));
+  }
+};
+
+module.exports = { signup, signin, profile, refresh, signout, edit };

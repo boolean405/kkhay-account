@@ -1,11 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const { signup, signin } = require("../controllers/userController");
-const { validateBody } = require("../utils/validator");
+const {
+  signup,
+  signin,
+  profile,
+  refresh,
+} = require("../controllers/userController");
+const {
+  validateBody,
+  validateToken,
+  validateCookie,
+} = require("../utils/validator");
 const { UserSchema } = require("../utils/schema");
 
 router.post("/signup", validateBody(UserSchema.signup), signup);
 router.post("/signin", validateBody(UserSchema.signin), signin);
+router.get("/profile", validateToken(), profile);
+router.get("/refresh", validateCookie(), refresh);
 
 module.exports = router;

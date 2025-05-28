@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const errorHandler = require("./middlewares/errorHandler");
@@ -16,6 +17,7 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(reqMethodLog);
 
 // const allowedOrigins = ["http://localhost:4000", "https://www.google.com"];

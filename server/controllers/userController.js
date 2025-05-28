@@ -72,10 +72,43 @@ const signin = async (req, res, next) => {
     const user = await UserDB.findById(existUser._id).select(
       "-password -refreshToken"
     );
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      // secure: true,
+      // sameSite: "none",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
     resJson(res, 200, "Success signin", user);
   } catch (error) {
     return next(new Error(error));
   }
 };
 
-module.exports = { signup, signin };
+const profile = async (req, res, next) => {
+  const userId = req.userId;
+  const user = await UserDB.findById(userId).select("-password -refreshToken");
+  resJson(res, 200, "Success get profile", user);
+};
+
+const refresh = async (req, res, next) => {
+  const decodedId = req.decodedId;
+
+  const accessToken = Token.makeAccessToken({
+    id: decodedId.toString(),
+  });
+
+  try {
+    await UserDB.findByIdAndUpdate(decodedId, {
+      accessToken,
+    });
+
+    const user = await UserDB.findById(decodedId).select(
+      "-password -refreshToken"
+    );
+    resJson(res, 200, "Success refresh", user);
+  } catch (error) {
+    return next(new Error(error));
+  }
+};
+
+module.exports = { signup, signin, profile, refresh };

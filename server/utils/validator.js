@@ -29,7 +29,7 @@ const validateToken = () => {
 
 const validateCookie = () => {
   return async (req, res, next) => {
-    const { refreshToken } = req.cookies;
+    const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
       const error = new Error("Need Refresh Token Cookie!");
       error.status = 401;

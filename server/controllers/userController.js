@@ -95,7 +95,7 @@ const profile = async (req, res, next) => {
     if (!user) {
       const error = new Error("User not found!");
       error.status = 404;
-      throw error.message;
+      return next(error);
     }
     resJson(res, 200, "Success get profile", user);
   } catch (error) {
@@ -114,7 +114,7 @@ const refresh = async (req, res, next) => {
     if (!user) {
       const error = new Error("User not found!");
       error.status = 404;
-      throw error.message;
+      return next(error);
     }
     await UserDB.findByIdAndUpdate(user._id, {
       accessToken,
@@ -165,7 +165,7 @@ const edit = async (req, res, next) => {
     if (!user) {
       const error = new Error("User not found!");
       error.status = 404;
-      throw error.message;
+      return next(error);
     }
     await UserDB.findByIdAndUpdate(user._id, {
       name,
@@ -189,7 +189,7 @@ const deleteAccount = async (req, res, next) => {
     if (!user) {
       const error = new Error("User not found!");
       error.status = 404;
-      throw error.message;
+      return next(error);
     }
     await UserDB.findByIdAndDelete(user._id);
     res.clearCookie("refreshToken", {

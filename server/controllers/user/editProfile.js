@@ -1,4 +1,4 @@
-const UserDB = require("../../models/userModel");
+const UserDB = require("../../models/user");
 const Encoder = require("../../utils/encoder");
 const resJson = require("../../utils/resJson");
 const resError = require("../../utils/resError");

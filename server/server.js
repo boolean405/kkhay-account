@@ -12,9 +12,6 @@ const reqMethodLog = require("./middlewares/reqMethodLog");
 const credentials = require("./middlewares/credentials");
 const corsOptions = require("./config/corsOptions");
 
-const PictureDB = require("./models/pictureModel");
-
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -30,7 +27,7 @@ app.use(cors(corsOptions));
 app.use(fileUpload());
 
 // Route
-const userRoute = require("./routes/userRoute");
+const userRoute = require("./routes/user");
 
 app.use("/api/user", userRoute);
 

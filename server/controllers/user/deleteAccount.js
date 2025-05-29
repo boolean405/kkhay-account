@@ -1,5 +1,5 @@
-const UserDB = require("../../models/userModel");
-const PictureDB = require("../../models/pictureModel");
+const UserDB = require("../../models/user");
+const PictureDB = require("../../models/picture");
 const resJson = require("../../utils/resJson");
 const resError = require("../../utils/resError");
 

@@ -1,5 +1,5 @@
-const UserDB = require("../../models/userModel");
-const PictureDB = require("../../models/pictureModel");
+const UserDB = require("../../models/user");
+const PictureDB = require("../../models/picture");
 const resError = require("../../utils/resError");
 
 const profilePicture = async (req, res, next) => {

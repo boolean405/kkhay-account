@@ -1,4 +1,4 @@
-const UserDB = require("../../models/userModel");
+const UserDB = require("../../models/user");
 const resJson = require("../../utils/resJson");
 
 const signout = async (req, res, next) => {

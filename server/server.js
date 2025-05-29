@@ -33,18 +33,6 @@ app.use(fileUpload());
 const userRoute = require("./routes/userRoute");
 
 app.use("/api/user", userRoute);
-app.get("/picture/:id", async (req, res) => {
-  try {
-    const pic = await PictureDB.findById(req.params.id);
-    if (!pic) return res.status(404).send("Not found");
-
-    res.set("Content-Type", pic.contentType);
-    res.send(pic.data);
-  } catch (err) {
-    res.status(500).send("Error retrieving image");
-  }
-});
-
 
 // MongoDB Connection)
 mongoose.connection.once("open", () => {

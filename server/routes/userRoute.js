@@ -10,6 +10,7 @@ const profile = require("../controllers/user/profile");
 const editProfile = require("../controllers/user/editProfile");
 const deleteAccount = require("../controllers/user/deleteAccount");
 const uploadPicture = require("../controllers/user/uploadPicture");
+const profilePicture = require("../controllers/user/profilePicture");
 
 const {
   validateBody,
@@ -21,11 +22,16 @@ router.post("/signup", validateBody(UserSchema.signup), signup);
 router.post("/signin", validateBody(UserSchema.signin), signin);
 router.get("/refresh", validateCookie(), refresh);
 router.post("/signout", validateCookie(), signout);
+
 router
   .route("/profile")
   .get(validateToken(), profile)
   .patch(validateToken(), validateBody(UserSchema.editProfile), editProfile)
-  .delete(validateToken(), deleteAccount)
-  .put(validateToken(), uploadPicture);
+  .delete(validateToken(), deleteAccount);
+
+router
+  .route("/profile/picture")
+  .get(validateToken(), profilePicture)
+  .post(validateToken(), uploadPicture);
 
 module.exports = router;

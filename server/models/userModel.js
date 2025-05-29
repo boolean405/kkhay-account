@@ -24,6 +24,7 @@ const userSchema = new Schema(
     },
     refreshToken: {
       type: String,
+      select: false,
     },
     accessToken: {
       type: String,
@@ -33,11 +34,7 @@ const userSchema = new Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    picture: {
-      type: String,
-      default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-    },
+    picture: { type: Schema.Types.ObjectId, ref: "picture" },
   },
   {
     timestamps: true,

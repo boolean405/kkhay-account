@@ -35,7 +35,7 @@ const UserSchema = {
       .required(),
   }),
 
-  edit: Joi.object({
+  editProfile: Joi.object({
     name: Joi.string()
       .regex(/^[A-Za-z\s]+$/)
       .min(4)

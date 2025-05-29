@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  signup,
-  signin,
-  profile,
-  refresh,
-  signout,
-  edit,
-  deleteAccount,
-} = require("../controllers/userController");
+const UserSchema = require("../utils/schema");
+const signup = require("../controllers/user/signup");
+const signin = require("../controllers/user/signin");
+const refresh = require("../controllers/user/refresh");
+const signout = require("../controllers/user/signout");
+const profile = require("../controllers/user/profile");
+const editProfile = require("../controllers/user/editProfile");
+const deleteAccount = require("../controllers/user/deleteAccount");
+const uploadPicture = require("../controllers/user/uploadPicture");
+
 const {
   validateBody,
   validateToken,
   validateCookie,
 } = require("../utils/validator");
-const UserSchema = require("../utils/schema");
 
 router.post("/signup", validateBody(UserSchema.signup), signup);
 router.post("/signin", validateBody(UserSchema.signin), signin);
@@ -24,7 +24,8 @@ router.post("/signout", validateCookie(), signout);
 router
   .route("/profile")
   .get(validateToken(), profile)
-  .patch(validateToken(), validateBody(UserSchema.edit), edit)
-  .delete(validateToken(), deleteAccount);
+  .patch(validateToken(), validateBody(UserSchema.editProfile), editProfile)
+  .delete(validateToken(), deleteAccount)
+  .put(validateToken(), uploadPicture);
 
 module.exports = router;

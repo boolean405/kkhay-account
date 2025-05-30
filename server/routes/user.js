@@ -13,6 +13,7 @@ const profilePicture = require("../controllers/user/profilePicture");
 const changePassword = require("../controllers/user/changePassword");
 const changeName = require("../controllers/user/changeName");
 const signupVerify = require("../controllers/user/signupVerify");
+const changeUsername = require("../controllers/user/changeUsername");
 
 const {
   validateBody,
@@ -54,7 +55,8 @@ router.patch(
 router.patch(
   "/changeusername",
   validateToken(),
-  validateBody(UserSchema.changeUsername)
+  validateBody(UserSchema.changeUsername),
+  changeUsername
 );
 
 router.patch(

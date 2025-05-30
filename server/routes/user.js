@@ -6,12 +6,13 @@ const signup = require("../controllers/user/signup");
 const signin = require("../controllers/user/signin");
 const refresh = require("../controllers/user/refresh");
 const signout = require("../controllers/user/signout");
-const profile = require("../controllers/user/profile");
-const editProfile = require("../controllers/user/editProfile");
+const getUserDetails = require("../controllers/user/getUserDetails");
 const deleteAccount = require("../controllers/user/deleteAccount");
 const uploadPicture = require("../controllers/user/uploadPicture");
 const profilePicture = require("../controllers/user/profilePicture");
-const verify = require("../controllers/user/verify");
+const changePassword = require("../controllers/user/changePassword");
+const changeName = require("../controllers/user/changeName");
+const signupVerify = require("../controllers/user/signupVerify");
 
 const {
   validateBody,
@@ -21,20 +22,46 @@ const {
 } = require("../utils/validator");
 
 router.post("/signup", validateBody(UserSchema.signup), signup);
-router.get("/verify", validateQuery(UserSchema.verify), verify);
 router.post("/signin", validateBody(UserSchema.signin), signin);
-router.get("/refresh", validateCookie(), refresh);
 router.post("/signout", validateCookie(), signout);
+router.get("/refresh", validateCookie(), refresh);
+router.get("/", validateToken(), getUserDetails);
+router.get(
+  "/signupverify",
+  validateQuery(UserSchema.signupVerify),
+  signupVerify
+);
+router.delete(
+  "/deleteaccount",
+  validateToken(),
+  validateBody(UserSchema.deleteAccount),
+  deleteAccount
+);
 
 router
-  .route("/profile")
-  .get(validateToken(), profile)
-  .patch(validateToken(), validateBody(UserSchema.editProfile), editProfile)
-  .delete(validateToken(), deleteAccount);
+  .route("/picture")
+  .all(validateToken())
+  .get(profilePicture)
+  .post(uploadPicture);
 
-router
-  .route("/profile/picture")
-  .get(validateToken(), profilePicture)
-  .post(validateToken(), uploadPicture);
+router.patch(
+  "/changename",
+  validateToken(),
+  validateBody(UserSchema.changeName),
+  changeName
+);
+
+router.patch(
+  "/changeusername",
+  validateToken(),
+  validateBody(UserSchema.changeUsername)
+);
+
+router.patch(
+  "/changepassword",
+  validateToken(),
+  validateBody(UserSchema.changePassword),
+  changePassword
+);
 
 module.exports = router;

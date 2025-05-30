@@ -35,25 +35,38 @@ const UserSchema = {
       .required(),
   }),
 
-  editProfile: Joi.object({
+  changeName: Joi.object({
     name: Joi.string()
       .regex(/^[A-Za-z\s]+$/)
       .min(4)
-      .max(20),
+      .max(20)
+      .required(),
+  }),
+
+  changeUsername: Joi.object({
     username: Joi.string()
       .pattern(/^[a-z0-9]+$/)
       .min(4)
-      .max(20),
-    email: Joi.string().email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "me", "org"] },
-    }),
-    password: Joi.string().pattern(
-      new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$')
-    ),
+      .max(20)
+      .required(),
   }),
 
-  verify: Joi.object({
+  changePassword: Joi.object({
+    oldPassword: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$'))
+      .required(),
+    newPassword: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$'))
+      .required(),
+  }),
+
+  deleteAccount: Joi.object({
+    password: Joi.string()
+      .pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$'))
+      .required(),
+  }),
+
+  signupVerify: Joi.object({
     token: Joi.string().required(),
     email: Joi.string()
       .email({

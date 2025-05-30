@@ -1,15 +1,14 @@
-// models/verificationToken.js
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const VerificationSchema = new Schema(
   {
-    name: { type: String, required: true },
-    username: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    token: { type: String, required: true },
-    expiresAt: { type: Date, required: true },
+    name: { type: String, require: true },
+    username: { type: String, require: true },
+    email: { type: String, require: true },
+    password: { type: String, require: true },
+    token: { type: String, require: true },
+    expiresAt: { type: Date, require: true },
   },
   {
     timestamps: true,

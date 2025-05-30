@@ -1,6 +1,8 @@
 # KKhay Account API
 
-A RESTful API for managing user accounts, built with **Node.js**, **Express.js**, and **MongoDB**.
+A secure and feature-rich RESTful API for managing user accounts, built using **Node.js**, **Express.js**, and **MongoDB**.
+
+---
 
 ## 🌐 Live API
 
@@ -9,77 +11,62 @@ A RESTful API for managing user accounts, built with **Node.js**, **Express.js**
 
 ---
 
-## ✨ New Feature: Email Verification
+## ✨ Email Verification
 
-Before a user account is created, the email must be verified.
-
-- A verification email is sent on signup.
-- The user must click the link to complete account creation.
-- The token is valid for 10 minutes.
-- Prevents spam and ensures real users.
+- On **signup**, a verification email is sent.
+- The user must verify via a tokenized link.
+- The token is valid for **10 minutes**.
+- This helps ensure authenticity and prevent spam.
 
 ---
 
 ## 📌 API Endpoints
 
-| Method | Endpoint           | Description                                 |
-| ------ | ------------------ | ------------------------------------------- |
-| POST   | `/signup`          | Request email verification for registration |
-| GET    | `/verify`          | Verify email and create user account        |
-| POST   | `/signin`          | User login                                  |
-| GET    | `/refresh`         | Refresh authentication token                |
-| POST   | `/signout`         | Logout user                                 |
-| GET    | `/profile`         | Get authenticated user profile              |
-| PATCH  | `/profile`         | Update user profile                         |
-| DELETE | `/profile`         | Delete user account                         |
-| GET    | `/profile/picture` | Get user's profile picture                  |
-| POST   | `/profile/picture` | Upload or update profile picture            |
-
----
-
-## 🧭 Overview
-
-The KKhay Account API provides endpoints to manage user accounts, authentication, email verification, and profile management. Built to be lightweight, secure, and easy to integrate into client applications.
+| Method | Endpoint                  | Description                                      | Auth Required |
+|--------|---------------------------|--------------------------------------------------|---------------|
+| POST   | `/signup`                 | Send email verification link                     | No            |
+| GET    | `/signupverify`          | Verify email and create user account             | No            |
+| POST   | `/signin`                 | Login and receive tokens                         | No            |
+| POST   | `/signout`                | Logout and clear refresh token                   | Yes (cookie)  |
+| GET    | `/refresh`                | Get new access token via refresh token           | Yes (cookie)  |
+| GET    | `/`                       | Get authenticated user's profile                 | Yes (token)   |
+| PATCH  | `/changename`            | Change user's full name                          | Yes (token)   |
+| PATCH  | `/changeusername`        | Change user's username                           | Yes (token)   |
+| PATCH  | `/changepassword`        | Change user's password                           | Yes (token)   |
+| DELETE | `/deleteaccount`         | Permanently delete user account                  | Yes (token)   |
+| GET    | `/picture`               | Get user's profile picture                       | Yes (token)   |
+| POST   | `/picture`               | Upload/update user's profile picture             | Yes (token)   |
 
 ---
 
 ## 🛠️ Features
 
-- Email verification via tokenized email link
-- JWT-based authentication (access & refresh tokens)
-- Secure password hashing
-- Profile and profile picture management
-- Request validation using Joi
-- Robust error handling
-- CORS and logging middleware
+- **Email verification** before account creation
+- **JWT-based auth** (access and refresh tokens)
+- **Secure password hashing** with bcrypt
+- **Profile picture support**
+- **Full CRUD** on account data
+- **Schema validation** with Joi
+- Middleware for **error handling**, **CORS**, **cookie parsing**, and **request logging**
 
 ---
 
-## 🧱 Technologies Used
+## 🧱 Tech Stack
 
-- Node.js
-- Express.js
-- MongoDB (Mongoose)
-- JSON Web Tokens (JWT)
-- Nodemailer
-- Joi (input validation)
-- CORS
-- dotenv
-
----
-
-## ✅ Prerequisites
-
-- [Node.js](https://nodejs.org/) installed
-- [MongoDB](https://www.mongodb.com/) (local or hosted)
-- An email account with app password (e.g., Gmail with App Password)
+- **Node.js**
+- **Express.js**
+- **MongoDB + Mongoose**
+- **JWT (JSON Web Tokens)**
+- **Nodemailer**
+- **Joi** (data validation)
+- **dotenv**
+- **express-fileupload**
 
 ---
 
-## 🚀 Installation
+## 📦 Installation
 
 ```bash
 git clone https://github.com/boolean405/kkhay-account.git
 cd kkhay-account
 npm install
-```

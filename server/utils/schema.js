@@ -52,6 +52,16 @@ const UserSchema = {
       new RegExp('^[a-zA-Z0-9!@#$%^&*()_+={}|:"<>?\\,-.]{4,30}$')
     ),
   }),
+
+  verify: Joi.object({
+    token: Joi.string().required(),
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net", "me", "org"] },
+      })
+      .required(),
+  }),
 };
 
 module.exports = UserSchema;

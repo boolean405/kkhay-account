@@ -11,14 +11,17 @@ const editProfile = require("../controllers/user/editProfile");
 const deleteAccount = require("../controllers/user/deleteAccount");
 const uploadPicture = require("../controllers/user/uploadPicture");
 const profilePicture = require("../controllers/user/profilePicture");
+const verify = require("../controllers/user/verify");
 
 const {
   validateBody,
   validateToken,
   validateCookie,
+  validateQuery,
 } = require("../utils/validator");
 
 router.post("/signup", validateBody(UserSchema.signup), signup);
+router.get("/verify", validateQuery(UserSchema.verify), verify);
 router.post("/signin", validateBody(UserSchema.signin), signin);
 router.get("/refresh", validateCookie(), refresh);
 router.post("/signout", validateCookie(), signout);

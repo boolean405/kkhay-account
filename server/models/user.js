@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const UserSchema = new Schema(
   {
     name: {
       type: String,
@@ -34,11 +34,11 @@ const userSchema = new Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    picture: { type: Schema.Types.ObjectId, ref: "picture" },
+    picture: { type: Schema.Types.ObjectId, ref: "Picture" },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", UserSchema);

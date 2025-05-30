@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verify your email</title>
+    <title>Signup Verification</title>
     <style>
       body {
         background-color: #f4f4f4;
@@ -11,123 +11,41 @@
         padding: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
-
       .container {
         max-width: 600px;
         margin: 40px auto;
         background: #ffffff;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 1s ease-in-out;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
       .header {
-        background: #4a90e2; /* blue */
+        background: #4a90e2;
         color: white;
         padding: 30px 20px;
         text-align: center;
-        animation: slideIn 1s ease-out;
       }
-
-      @keyframes slideIn {
-        0% {
-          transform: translateX(-100%);
-        }
-        100% {
-          transform: translateX(0);
-        }
-      }
-
-      /* Circle container with pulse effect */
-      .circle-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 30px 0;
-        position: relative;
-        width: 80px;
-        height: 80px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: #4a90e2;
-        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.7);
-        animation: pulse 2s infinite;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-      }
-
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.7);
-        }
-        70% {
-          box-shadow: 0 0 0 20px rgba(74, 144, 226, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-        }
-      }
-
-      /* The Verify button inside the circle */
-      .circle .button {
-        width: 60px;
-        height: 30px;
-        font-size: 14px;
-        padding: 0;
-        line-height: 30px;
-        border-radius: 15px;
-        box-shadow: none;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        border: none;
-        cursor: pointer;
-      }
-
-      .circle .button:hover {
-        transform: scale(1.1);
-      }
-
       .body {
         padding: 30px 20px;
         text-align: center;
         color: #333;
-        animation: fadeIn 1.5s ease-in;
       }
-
       .button {
         display: inline-block;
+        margin: 20px 0;
+        padding: 15px 25px;
+        font-size: 16px;
+        background-color: #4a90e2;
         color: white !important;
         text-decoration: none !important;
+        border-radius: 5px;
         font-weight: bold;
-        cursor: pointer;
-        background-color: #4a90e2;
       }
-
       .footer {
         font-size: 12px;
         color: #aaa;
         padding: 20px;
         text-align: center;
-        animation: fadeIn 2s ease-in-out;
       }
     </style>
   </head>
@@ -135,27 +53,17 @@
     <div class="container">
       <div class="header">
         <h1>KKhay Account</h1>
-        <h2>Success Signup</h2>
+        <h2>Verify Your Email</h2>
       </div>
-
-      <!-- Circle with pulse effect and Verify button inside -->
-      <div class="circle-container">
-        <div class="circle">
-          <button
-            class="button"
-            onclick="window.location.href='${verificationLink}'"
-          >
-            Verify
-          </button>
-        </div>
-      </div>
-
       <div class="body">
-        <p>Thanks for signing up with <strong>KKhay Account</strong></p>
+        <p>Thanks for signing up with <strong>KKhay Account</strong>!</p>
         <p>Please confirm your email address by clicking the button below:</p>
-        <small>
-          If you didn't create an account, you can safely ignore this email.
-        </small>
+        <a href="${verificationLink}" class="button" target="_blank">Verify</a>
+        <p>
+          <small>
+            If you didn't create an account, you can safely ignore this email.
+          </small>
+        </p>
       </div>
       <div class="footer">
         Copyright &copy; KKhay Account. All rights reserved.

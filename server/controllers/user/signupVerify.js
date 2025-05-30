@@ -11,9 +11,13 @@ const signupVerify = async (req, res, next) => {
   try {
     const record = await VerificationDB.findOne({ email, token });
 
-    if (!record) throw resError(400, "Invalid or expired verification link!");
-    if (record.expiresAt < new Date())
-      throw resError(401, "Verification process expired!");
+    if (!record || record.expiresAt < new Date()) {
+      const failSignup = fs.readFileSync(
+        path.join(__dirname, "successSignup.html"),
+        "utf8"
+      );
+      return res.send(failSignup);
+    }
 
     await UserDB.create({
       name: record.name,
@@ -25,12 +29,12 @@ const signupVerify = async (req, res, next) => {
     await VerificationDB.findByIdAndDelete(record._id);
 
     // Load the HTML file
-    let htmlFile = fs.readFileSync(
-      path.join(__dirname, "signupVerified.html"),
+    const successSignup = fs.readFileSync(
+      path.join(__dirname, "successSignup.html"),
       "utf8"
     );
 
-    res.send(htmlFile);
+    res.send(successSignup);
   } catch (error) {
     next(error);
   }

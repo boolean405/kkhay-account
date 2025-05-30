@@ -41,7 +41,10 @@ const signup = async (req, res, next) => {
     const verificationLink = `${process.env.SERVER_URL}/api/user/signupverify?token=${token}&email=${email}`;
 
     // Load the HTML file
-    let htmlFile = fs.readFileSync(path.join(__dirname, "signup.html"), "utf8");
+    let htmlFile = fs.readFileSync(
+      path.join(__dirname, "verifySignup.html"),
+      "utf8"
+    );
     htmlFile = htmlFile.replace("${verificationLink}", verificationLink);
 
     // Send Email

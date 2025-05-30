@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Verified</title>
+    <title>Verify your email</title>
     <style>
       body {
         background-color: #f4f4f4;
@@ -34,7 +34,7 @@
       }
 
       .header {
-        background: #4caf50;
+        background: #4a90e2; /* blue */
         color: white;
         padding: 30px 20px;
         text-align: center;
@@ -50,69 +50,60 @@
         }
       }
 
-      .checkmark-container {
+      /* Circle container with pulse effect */
+      .circle-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 30px;
-        margin-bottom: 10px;
+        margin: 30px 0;
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .checkmark {
+      .circle {
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        display: block;
-        stroke-width: 2;
-        stroke: #fff;
-        stroke-miterlimit: 10;
-        box-shadow: inset 0px 0px 0px #4caf50;
-        animation: fill 0.4s ease-in-out 0.4s forwards,
-          scale 0.3s ease-in-out 0.9s both, pulse 2s infinite 1.5s;
+        background: #4a90e2;
+        box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.7);
+        animation: pulse 2s infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
-        background: #4caf50;
       }
 
       @keyframes pulse {
         0% {
-          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+          box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.7);
         }
         70% {
-          box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
+          box-shadow: 0 0 0 20px rgba(74, 144, 226, 0);
         }
         100% {
-          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+          box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
         }
       }
 
-      .checkmark__check {
-        transform-origin: 50% 50%;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        animation: stroke 0.4s ease-in-out 0.8s forwards;
+      /* The Verify button inside the circle */
+      .circle .button {
+        width: 60px;
+        height: 30px;
+        font-size: 14px;
+        padding: 0;
+        line-height: 30px;
+        border-radius: 15px;
+        box-shadow: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border: none;
+        cursor: pointer;
       }
 
-      @keyframes stroke {
-        100% {
-          stroke-dashoffset: 0;
-        }
-      }
-
-      @keyframes scale {
-        0%,
-        100% {
-          transform: none;
-        }
-
-        50% {
-          transform: scale3d(1.1, 1.1, 1);
-        }
-      }
-
-      @keyframes fill {
-        100% {
-          box-shadow: inset 0px 0px 0px 30px #4caf50;
-        }
+      .circle .button:hover {
+        transform: scale(1.1);
       }
 
       .body {
@@ -124,20 +115,11 @@
 
       .button {
         display: inline-block;
-        margin: 20px 0;
-        padding: 15px 25px;
-        font-size: 16px;
-        background-color: #4a90e2;
         color: white !important;
         text-decoration: none !important;
-        border-radius: 5px;
         font-weight: bold;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
-
-      .button:hover {
-        background-color: #357ab8;
-        transform: scale(1.05);
+        cursor: pointer;
+        background-color: #4a90e2;
       }
 
       .footer {
@@ -153,18 +135,27 @@
     <div class="container">
       <div class="header">
         <h1>KKhay Account</h1>
-        <h2>Signup Success</h2>
+        <h2>Success Signup</h2>
       </div>
-      <div class="checkmark-container">
-        <svg class="checkmark" viewBox="0 0 52 52">
-          <circle cx="26" cy="26" r="25" fill="none" />
-          <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16" />
-        </svg>
+
+      <!-- Circle with pulse effect and Verify button inside -->
+      <div class="circle-container">
+        <div class="circle">
+          <button
+            class="button"
+            onclick="window.location.href='${verificationLink}'"
+          >
+            Verify
+          </button>
+        </div>
       </div>
+
       <div class="body">
-        <p>Your email has been successfully verified!</p>
-        <p>You can now login to your account.</p>
-        <!-- <a href="/login" class="button">Go to Login</a> -->
+        <p>Thanks for signing up with <strong>KKhay Account</strong></p>
+        <p>Please confirm your email address by clicking the button below:</p>
+        <small>
+          If you didn't create an account, you can safely ignore this email.
+        </small>
       </div>
       <div class="footer">
         Copyright &copy; KKhay Account. All rights reserved.

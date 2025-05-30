@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Failed to Signup!</title>
+    <style>
+      body {
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header {
+        background: #e74c3c; /* changed to red */
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        animation: slideIn 1s ease-out;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .checkmark-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+
+      .checkmark {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px #e74c3c; /* changed to red */
+        animation: fill 0.4s ease-in-out 0.4s forwards,
+          scale 0.3s ease-in-out 0.9s both, pulse 2s infinite 1.5s;
+        position: relative;
+        background: #e74c3c; /* changed to red */
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); /* red */
+        }
+        70% {
+          box-shadow: 0 0 0 20px rgba(231, 76, 60, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+        }
+      }
+
+      .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 28;
+        stroke-dashoffset: 28;
+        animation: stroke 0.4s ease-in-out 0.8s forwards;
+      }
+
+      @keyframes stroke {
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes scale {
+        0%,
+        100% {
+          transform: none;
+        }
+
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      @keyframes fill {
+        100% {
+          box-shadow: inset 0px 0px 0px 30px #e74c3c; /* red */
+        }
+      }
+
+      .body {
+        padding: 30px 20px;
+        text-align: center;
+        color: #333;
+        animation: fadeIn 1.5s ease-in;
+      }
+
+      .footer {
+        font-size: 12px;
+        color: #aaa;
+        padding: 20px;
+        text-align: center;
+        animation: fadeIn 2s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>KKhay Account</h1>
+        <h2>Failed to Signup!</h2>
+      </div>
+      <div class="checkmark-container">
+        <svg class="checkmark" viewBox="0 0 52 52" aria-hidden="true">
+          <circle cx="26" cy="26" r="25" fill="none" />
+          <line
+            class="checkmark__check"
+            x1="16"
+            y1="16"
+            x2="36"
+            y2="36"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <line
+            class="checkmark__check"
+            x1="36"
+            y1="16"
+            x2="16"
+            y2="36"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="body">
+        <p>Invalid or expired verification link!</p>
+        <p>Signup and request verification link again!</p>
+      </div>
+      <div class="footer">
+        Copyright &copy; KKhay Account. All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

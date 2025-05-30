@@ -31,8 +31,8 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["USER", "ADMIN"],
-      default: "User",
+      enum: ["user", "admin"],
+      default: "user",
     },
     picture: { type: Schema.Types.ObjectId, ref: "Picture" },
   },

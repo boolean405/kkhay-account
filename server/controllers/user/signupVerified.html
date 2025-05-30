@@ -18,7 +18,19 @@
         background: #ffffff;
         border-radius: 10px;
         overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .header {
@@ -26,6 +38,16 @@
         color: white;
         padding: 30px 20px;
         text-align: center;
+        animation: slideIn 1s ease-out;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
 
       .checkmark-container {
@@ -46,9 +68,21 @@
         stroke-miterlimit: 10;
         box-shadow: inset 0px 0px 0px #4caf50;
         animation: fill 0.4s ease-in-out 0.4s forwards,
-          scale 0.3s ease-in-out 0.9s both;
+          scale 0.3s ease-in-out 0.9s both, pulse 2s infinite 1.5s;
         position: relative;
         background: #4caf50;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+        }
       }
 
       .checkmark__check {
@@ -85,6 +119,7 @@
         padding: 30px 20px;
         text-align: center;
         color: #333;
+        animation: fadeIn 1.5s ease-in;
       }
 
       .button {
@@ -97,6 +132,12 @@
         text-decoration: none !important;
         border-radius: 5px;
         font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #357ab8;
+        transform: scale(1.05);
       }
 
       .footer {
@@ -104,13 +145,15 @@
         color: #aaa;
         padding: 20px;
         text-align: center;
+        animation: fadeIn 2s ease-in-out;
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <h1>Account Verified</h1>
+        <h1>KKhay Account</h1>
+        <h2>Signup Success</h2>
       </div>
       <div class="checkmark-container">
         <svg class="checkmark" viewBox="0 0 52 52">
@@ -124,11 +167,7 @@
         <!-- <a href="/login" class="button">Go to Login</a> -->
       </div>
       <div class="footer">
-        Copyright &copy;
-        <script>
-          document.write(new Date().getFullYear());
-        </script>
-        KKhay Account. All rights reserved.
+        Copyright &copy; KKhay Account. All rights reserved.
       </div>
     </div>
   </body>

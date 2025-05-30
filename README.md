@@ -1,64 +1,85 @@
 # KKhay Account API
 
-A RESTful API for managing user account built with **Node.js**, **Express.js** and **MongoDB**.
+A RESTful API for managing user accounts, built with **Node.js**, **Express.js**, and **MongoDB**.
 
-# Kkhay Account User API
+## 🌐 Live API
 
-API service hosted at [https://kkhay-account.onrender.com/api/user](https://kkhay-account.onrender.com/api/user)
+**Base URL:**  
+[https://kkhay-account.onrender.com/api/user](https://kkhay-account.onrender.com/api/user)
 
-### Available Endpoints
+---
 
-List the main API endpoints here.
+## ✨ New Feature: Email Verification
 
-## API Endpoints
+Before a user account is created, the email must be verified.
 
-| Method | Endpoint             | Description                         |
-|--------|----------------------|-----------------------------------|
-| POST   | `/signup`            | Register a new user                |
-| POST   | `/signin`            | User login                        |
-| GET    | `/refresh`           | Refresh authentication token      |
-| POST   | `/signout`           | Logout user                      |
-| GET    | `/profile`           | Get authenticated user profile    |
-| PATCH  | `/profile`           | Update user profile               |
-| DELETE | `/profile`           | Delete user account               |
-| GET    | `/profile/picture`   | Get user's profile picture        |
-| POST   | `/profile/picture`   | Upload or update profile picture  |
+- A verification email is sent on signup.
+- The user must click the link to complete account creation.
+- The token is valid for 10 minutes.
+- Prevents spam and ensures real users.
 
+---
 
-## Overview
+## 📌 API Endpoints
 
-Kkhay Account API provides endpoints to manage user accounts, authentication, and related features. This project is designed to be lightweight, fast, and easy to integrate with your applications.
+| Method | Endpoint           | Description                                 |
+| ------ | ------------------ | ------------------------------------------- |
+| POST   | `/signup`          | Request email verification for registration |
+| GET    | `/verify`          | Verify email and create user account        |
+| POST   | `/signin`          | User login                                  |
+| GET    | `/refresh`         | Refresh authentication token                |
+| POST   | `/signout`         | Logout user                                 |
+| GET    | `/profile`         | Get authenticated user profile              |
+| PATCH  | `/profile`         | Update user profile                         |
+| DELETE | `/profile`         | Delete user account                         |
+| GET    | `/profile/picture` | Get user's profile picture                  |
+| POST   | `/profile/picture` | Upload or update profile picture            |
 
-## Base URL
+---
 
-## Features
+## 🧭 Overview
 
-- Create, read, update, and delete notes
-- Search notes by keywords
-- Pagination support for fetching notes
-- Request validation with Joi schemas
-- JWT token validation for authentication
-- Middleware for error handling, CORS, and logging
+The KKhay Account API provides endpoints to manage user accounts, authentication, email verification, and profile management. Built to be lightweight, secure, and easy to integrate into client applications.
 
-## Technologies Used
+---
+
+## 🛠️ Features
+
+- Email verification via tokenized email link
+- JWT-based authentication (access & refresh tokens)
+- Secure password hashing
+- Profile and profile picture management
+- Request validation using Joi
+- Robust error handling
+- CORS and logging middleware
+
+---
+
+## 🧱 Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB (Mongoose)
-- Joi (for validation)
 - JSON Web Tokens (JWT)
+- Nodemailer
+- Joi (input validation)
 - CORS
+- dotenv
 
-## Prerequisites
+---
+
+## ✅ Prerequisites
 
 - [Node.js](https://nodejs.org/) installed
-- [MongoDB](https://www.mongodb.com/) database (local or hosted)
-- npm or yarn package manager
+- [MongoDB](https://www.mongodb.com/) (local or hosted)
+- An email account with app password (e.g., Gmail with App Password)
 
-## Installation
+---
 
-1. Clone the repository:
+## 🚀 Installation
 
 ```bash
 git clone https://github.com/boolean405/kkhay-account.git
 cd kkhay-account
+npm install
+```

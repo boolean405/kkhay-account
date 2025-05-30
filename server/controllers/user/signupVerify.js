@@ -3,7 +3,6 @@ const path = require("path");
 
 const UserDB = require("../../models/user");
 const VerificationDB = require("../../models/verification");
-const resError = require("../../utils/resError");
 
 const signupVerify = async (req, res, next) => {
   const { token, email } = req.query;
@@ -13,7 +12,7 @@ const signupVerify = async (req, res, next) => {
 
     if (!record || record.expiresAt < new Date()) {
       const failSignup = fs.readFileSync(
-        path.join(__dirname, "successSignup.html"),
+        path.join(__dirname, "failSignup.html"),
         "utf8"
       );
       return res.send(failSignup);

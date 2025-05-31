@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
 const connectDB = require("./config/db");
+const rateLimiter = require("./middlewares/rateLimiter");
 const errorHandler = require("./middlewares/errorHandler");
 const notFoundHandler = require("./middlewares/notFoundHandler");
 const reqMethodLog = require("./middlewares/reqMethodLog");
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3000;
 connectDB();
 
 // Middleware
+app.use(rateLimiter);
 app.use(express.json());
 app.use(cookieParser());
 app.use(reqMethodLog);

@@ -1,4 +1,4 @@
-const resJson = (res, status, msg, result) => {
+const resJson = (res, status, message, result) => {
   res.status(status).json({
     status: true,
     message,

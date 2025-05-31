@@ -50,7 +50,7 @@ const signup = async (req, res, next) => {
     // Send Email
     await sendEmail(email, "[KKhay Account] Verify your email", htmlFile);
 
-    resJson(res, 202, "Verification email sent.");
+    resJson(res, 200, "Verification email sent.");
   } catch (error) {
     error.status = error.status;
     next(error);

@@ -36,6 +36,7 @@ const uploadPicture = async (req, res, next) => {
     });
 
     await UserDB.findByIdAndUpdate(user._id, {
+      pictureUrl: `${process.env.SERVER_URL}/api/user`,
       picture: newPicture._id,
     });
     const updatedUser = await UserDB.findById(user._id).select("-password");

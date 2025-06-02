@@ -34,6 +34,11 @@ const UserSchema = new Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    pictureUrl: {
+      type: String,
+      required: true,
+      default: `${process.env.SERVER_URL}/api/user`,
+    },
     picture: { type: Schema.Types.ObjectId, ref: "Picture" },
   },
   {

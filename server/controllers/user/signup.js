@@ -34,6 +34,7 @@ const signup = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
+      pictureUrl: `https://api.dicebear.com/9.x/avataaars/svg?seed=${username}`,
       token,
       expiresAt,
     });

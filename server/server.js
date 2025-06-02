@@ -9,7 +9,7 @@ const connectDB = require("./config/db");
 const rateLimiter = require("./middlewares/rateLimiter");
 const errorHandler = require("./middlewares/errorHandler");
 const notFoundHandler = require("./middlewares/notFoundHandler");
-// const reqMethodLog = require("./middlewares/reqMethodLog");
+const reqMethodLog = require("./middlewares/reqMethodLog");
 const credentials = require("./middlewares/credentials");
 const corsOptions = require("./config/corsOptions");
 
@@ -23,7 +23,7 @@ connectDB();
 app.use(rateLimiter);
 app.use(express.json());
 app.use(cookieParser());
-// app.use(reqMethodLog);
+app.use(reqMethodLog);
 app.use(credentials);
 app.use(cors(corsOptions));
 app.use(fileUpload());

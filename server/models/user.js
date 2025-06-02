@@ -37,7 +37,6 @@ const UserSchema = new Schema(
     pictureUrl: {
       type: String,
       required: true,
-      default: `${process.env.SERVER_URL}/api/user`,
     },
     picture: { type: Schema.Types.ObjectId, ref: "Picture" },
   },

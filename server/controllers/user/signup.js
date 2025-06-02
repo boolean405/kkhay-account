@@ -27,6 +27,7 @@ const signup = async (req, res, next) => {
     const token = crypto.randomBytes(32).toString("hex");
     const hashedPassword = Encoder.encode(password);
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
+    const picture = `https://api.dicebear.com/9.x/avataaars/svg?seed=${username}`;
 
     // Create new verification
     await VerificationDB.create({
@@ -34,6 +35,7 @@ const signup = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
+      picture,
       token,
       expiresAt,
     });

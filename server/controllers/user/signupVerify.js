@@ -23,7 +23,6 @@ const signupVerify = async (req, res, next) => {
       username: record.username,
       email: record.email,
       password: record.password,
-      picture: record.picture,
     });
 
     await VerificationDB.findByIdAndDelete(record._id);

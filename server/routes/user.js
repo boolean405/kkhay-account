@@ -28,11 +28,7 @@ router.post("/signin", validateBody(UserSchema.signin), signin);
 router.post("/signout", validateCookie(), signout);
 router.get("/refresh", validateCookie(), refresh);
 router.get("/", validateToken(), getUserDetails);
-router.post(
-  "/verify",
-  validateBody(UserSchema.verify),
-  verify
-);
+router.post("/verify", validateBody(UserSchema.verify), verify);
 router.delete(
   "/deleteaccount",
   validateToken(),

@@ -6,6 +6,7 @@ const VerificationDB = require("../../models/verification");
 const resJson = require("../../utils/resJson");
 const sendEmail = require("../../utils/sendEmail");
 const resError = require("../../utils/resError");
+const Token = require("../../utils/token");
 
 const verify = async (req, res, next) => {
   const { email, code } = req.body;

@@ -4,23 +4,20 @@ const path = require("path");
 const UserDB = require("../../models/user");
 const VerificationDB = require("../../models/verification");
 const resJson = require("../../utils/resJson");
+const sendEmail = require("../../utils/sendEmail");
 
 const verify = async (req, res, next) => {
   const { email, code } = req.body;
 
   try {
-    if (!(await VerificationDB.findOne({ email }))) {
+    if (!(await VerificationDB.findOne({ email })))
       throw resError(400, "Invalid email!");
-    }
 
     const record = await VerificationDB.findOne({ code });
-    if (!record) {
-      throw resError(400, "Invalid verification code!");
-    }
+    if (!record) throw resError(400, "Invalid verification code!");
 
-    if (record.expiresAt < new Date()) {
+    if (record.expiresAt < new Date())
       throw resError(410, "Expired verification code!");
-    }
 
     const newUser = await UserDB.create({
       name: record.name,
@@ -53,6 +50,24 @@ const verify = async (req, res, next) => {
 
     await VerificationDB.findByIdAndDelete(record._id);
     const user = await UserDB.findById(newUser._id).select("-password");
+
+    // Send verified email
+    // Load the HTML file
+    let htmlFile = fs.readFileSync(
+      path.join(__dirname, "../../assets/html/successSignup.html"),
+      "utf8"
+    );
+
+    htmlFile = htmlFile.replace(
+      "{verifiedImage}",
+      `${process.env.SERVER_URL}/image/verified`
+    );
+
+    await sendEmail(
+      user.email,
+      "[K Khay Account] Successfully Verified",
+      htmlFile
+    );
 
     resJson(res, 200, "Success signup.", user);
   } catch (error) {

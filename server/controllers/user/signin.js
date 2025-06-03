@@ -26,7 +26,7 @@ const signin = async (req, res, next) => {
       accessToken,
     });
 
-    const user = await UserDB.findById(existUser._id).select("-password");
+    const user = await UserDB.findById(existUser._id).select("-password").populate("picture");
 
     const isLocalhost =
       req.hostname === "localhost" || req.hostname === "127.0.0.1";

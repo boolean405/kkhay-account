@@ -75,6 +75,14 @@ const UserSchema = {
       })
       .required(),
   }),
+
+  params: {
+    userId: Joi.object({
+      userId: Joi.string()
+        .regex(/^[0-9a-fA-F]{24}$/)
+        .required(),
+    }),
+  },
 };
 
 module.exports = UserSchema;

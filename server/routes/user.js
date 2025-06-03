@@ -14,12 +14,14 @@ const changePassword = require("../controllers/user/changePassword");
 const changeName = require("../controllers/user/changeName");
 const signupVerify = require("../controllers/user/signupVerify");
 const changeUsername = require("../controllers/user/changeUsername");
+const getPicture = require("../controllers/user/getPicture");
 
 const {
   validateBody,
   validateToken,
   validateCookie,
   validateQuery,
+  validateParam,
 } = require("../utils/validator");
 
 router.post("/signup", validateBody(UserSchema.signup), signup);
@@ -37,6 +39,12 @@ router.delete(
   validateToken(),
   validateBody(UserSchema.deleteAccount),
   deleteAccount
+);
+
+router.get(
+  "/picture/:userId",
+  validateParam(UserSchema.params.userId, "userId"),
+  getPicture
 );
 
 router

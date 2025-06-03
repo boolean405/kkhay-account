@@ -32,19 +32,19 @@ const validateCookie = () => {
   };
 };
 
-// const validateParam = (schema, param) => {
-//   return (req, res, next) => {
-//     let obj = {};
-//     obj[`${param}`] = req.params[`${param}`];
-//     let result = schema.validate(obj);
-//     if (result.error) {
-//       const error = new Error(result.error.message);
-//       error.status = 400;
-//       return next(error);
-//     }
-//     next();
-//   };
-// };
+const validateParam = (schema, param) => {
+  return (req, res, next) => {
+    let obj = {};
+    obj[`${param}`] = req.params[`${param}`];
+    let result = schema.validate(obj);
+    if (result.error) {
+      const error = new Error(result.error.message);
+      error.status = 400;
+      return next(error);
+    }
+    next();
+  };
+};
 
 const validateQuery = (schema) => {
   return (req, res, next) => {
@@ -54,4 +54,10 @@ const validateQuery = (schema) => {
   };
 };
 
-module.exports = { validateBody, validateToken, validateCookie, validateQuery };
+module.exports = {
+  validateBody,
+  validateToken,
+  validateCookie,
+  validateQuery,
+  validateParam,
+};

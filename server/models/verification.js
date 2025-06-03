@@ -7,7 +7,6 @@ const VerificationSchema = new Schema(
     username: { type: String, require: true },
     email: { type: String, require: true },
     password: { type: String, require: true },
-    pictureUrl: { type: String, require: true },
     token: { type: String, require: true },
     expiresAt: { type: Date, require: true },
   },
@@ -16,4 +15,4 @@ const VerificationSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Verification", VerificationSchema);
+module.exports = mongoose.model("verification", VerificationSchema);

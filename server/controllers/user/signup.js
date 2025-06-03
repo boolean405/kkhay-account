@@ -34,7 +34,6 @@ const signup = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-      pictureUrl: `https://api.dicebear.com/9.x/avataaars/svg?seed=${username}`,
       token,
       expiresAt,
     });
@@ -49,7 +48,7 @@ const signup = async (req, res, next) => {
     htmlFile = htmlFile.replace("${verificationLink}", verificationLink);
 
     // Send Email
-    await sendEmail(email, "[KKhay Account] Verify your email", htmlFile);
+    await sendEmail(email, "[K Khay Account] Verify your email", htmlFile);
 
     resJson(res, 200, "Verification email sent.");
   } catch (error) {

@@ -1,4 +1,3 @@
-const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
@@ -24,7 +23,7 @@ const signup = async (req, res, next) => {
       await VerificationDB.deleteOne({ email });
 
     // Generate new token
-    const token = crypto.randomBytes(32).toString("hex");
+    const code = Math.floor(100000 + Math.random() * 900000).toString(); // e.g. "482391"
     const hashedPassword = Encoder.encode(password);
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
 
@@ -34,23 +33,26 @@ const signup = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-      token,
+      code,
       expiresAt,
     });
 
-    const verificationLink = `${process.env.SERVER_URL}/api/user/signupverify?token=${token}&email=${email}`;
-
     // Load the HTML file
     let htmlFile = fs.readFileSync(
-      path.join(__dirname, "verifySignup.html"),
+      path.join(__dirname, "../../assets/html/verifySignup.html"),
       "utf8"
     );
-    htmlFile = htmlFile.replace("${verificationLink}", verificationLink);
+
+    htmlFile = htmlFile.replace("{verificationCode}", code);
+    htmlFile = htmlFile.replace(
+      "{logoImage}",
+      `${process.env.SERVER_URL}/image/logo`
+    );
 
     // Send Email
-    await sendEmail(email, "[K Khay Account] Verify your email", htmlFile);
+    await sendEmail(email, "[K Khay Account] Verify Your Account", htmlFile);
 
-    resJson(res, 200, "Verification email sent.");
+    resJson(res, 200, "Verification code email sent.");
   } catch (error) {
     error.status = error.status;
     next(error);

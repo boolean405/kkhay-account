@@ -26,12 +26,12 @@ const signin = async (req, res, next) => {
       accessToken,
     });
 
-    const user = await UserDB.findById(existUser._id).select("-password").populate("picture");
+    const user = await UserDB.findById(existUser._id).select("-password");
 
     const isLocalhost =
       req.hostname === "localhost" || req.hostname === "127.0.0.1";
 
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie("refreshToken", refreshToken, { 
       httpOnly: true,
       sameSite: "None",
       secure: !isLocalhost,

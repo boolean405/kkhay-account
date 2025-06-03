@@ -66,8 +66,8 @@ const UserSchema = {
       .required(),
   }),
 
-  signupVerify: Joi.object({
-    token: Joi.string().required(),
+  verify: Joi.object({
+    code: Joi.string().required(),
     email: Joi.string()
       .email({
         minDomainSegments: 2,

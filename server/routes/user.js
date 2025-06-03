@@ -12,7 +12,7 @@ const uploadPicture = require("../controllers/user/uploadPicture");
 const profilePicture = require("../controllers/user/profilePicture");
 const changePassword = require("../controllers/user/changePassword");
 const changeName = require("../controllers/user/changeName");
-const signupVerify = require("../controllers/user/signupVerify");
+const verify = require("../controllers/user/verify");
 const changeUsername = require("../controllers/user/changeUsername");
 const getPicture = require("../controllers/user/getPicture");
 
@@ -20,7 +20,6 @@ const {
   validateBody,
   validateToken,
   validateCookie,
-  validateQuery,
   validateParam,
 } = require("../utils/validator");
 
@@ -29,10 +28,10 @@ router.post("/signin", validateBody(UserSchema.signin), signin);
 router.post("/signout", validateCookie(), signout);
 router.get("/refresh", validateCookie(), refresh);
 router.get("/", validateToken(), getUserDetails);
-router.get(
-  "/signupverify",
-  validateQuery(UserSchema.signupVerify),
-  signupVerify
+router.post(
+  "/verify",
+  validateBody(UserSchema.verify),
+  verify
 );
 router.delete(
   "/deleteaccount",

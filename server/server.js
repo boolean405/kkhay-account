@@ -30,8 +30,10 @@ app.use(fileUpload());
 
 // Route
 const userRoute = require("./routes/user");
+const imageRoute = require("./routes/image");
 
 app.use("/api/user", userRoute);
+app.use("/image", imageRoute);
 
 // MongoDB Connection)
 mongoose.connection.once("open", () => {
